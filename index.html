@@ -402,15 +402,6 @@ h3 {
   animation: slide-in 0.6s forwards;
 }
 
-.hero-stat-card {
-  transition: translate 0.22s ease, border-color 0.22s ease;
-}
-
-.hero-stat-card:hover {
-  translate: 4px 0;
-  border-color: var(--volt);
-}
-
 .hero-stat-card:nth-child(1) { animation-delay: 0.5s; }
 .hero-stat-card:nth-child(2) { animation-delay: 0.7s; }
 .hero-stat-card:nth-child(3) { animation-delay: 0.9s; }
@@ -1600,52 +1591,6 @@ footer {
     transition-duration: 0.01ms !important;
   }
 }
-/*  back to hero scroll button */
-.back-to-hero {
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
-  z-index: 9999;
-  width: 52px;
-  height: 52px;
-  border: 1px solid rgba(232,255,0,0.45);
-  border-radius: 50%;
-  background: rgba(10,10,15,0.78);
-  color: var(--volt);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 18px 45px rgba(0,0,0,0.35);
-  cursor: pointer;
-  transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
-}
-
-.back-to-hero:hover {
-  transform: translateY(-4px);
-  border-color: var(--volt);
-  background: rgba(232,255,0,0.12);
-  box-shadow: 0 22px 55px rgba(232,255,0,0.16);
-}
-
-.back-to-hero svg {
-  width: 22px;
-  height: 22px;
-  stroke-width: 2.4;
-}
-
-@media (max-width: 640px) {
-  .back-to-hero {
-    right: 18px;
-    bottom: 18px;
-    width: 48px;
-    height: 48px;
-  }
-}
-
-
-
 </style>
 </head>
 <body>
@@ -1659,7 +1604,7 @@ footer {
   <a href="#trainers" onclick="closeMobile()">Trainers</a>
   <a href="#membership" onclick="closeMobile()">Membership</a>
   <a href="#testimonials" onclick="closeMobile()">Reviews</a>
-  <a href="#final-cta" class="btn btn-primary" onclick="closeMobile()">Book Free Trial</a>
+  <a href="booking.html" class="btn btn-primary" onclick="closeMobile()">Book Free Trial</a>
 </nav>
 
 <!-- ============================================================
@@ -1678,7 +1623,7 @@ footer {
       </ul>
       <div class="nav-actions">
         <a href="tel:+919999999999" class="nav-phone" aria-label="Call us">+91 99999 99999</a>
-        <a href="#final-cta" class="btn btn-primary">Book Free Trial →</a>
+        <a href="booking.html" class="btn btn-primary">Book Free Trial →</a>
       </div>
       <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -1721,7 +1666,7 @@ footer {
             IronForge is Hisar's most results-focused training facility. Expert coaches, proven methods, real transformations — starting with a free trial.
           </p>
           <div class="hero-ctas">
-            <a href="#final-cta" class="btn btn-primary" aria-label="Book your free trial">Book Free Trial →</a>
+            <a href="booking.html" class="btn btn-primary" aria-label="Book your free trial">Book Free Trial →</a>
             <a href="#membership" class="btn btn-secondary" aria-label="View membership plans">View Plans</a>
           </div>
         </div>
@@ -2089,7 +2034,7 @@ footer {
           <li class="disabled"><span>✗</span>Personal Training Sessions</li>
           <li class="disabled"><span>✗</span>Nutrition Coaching</li>
         </ul>
-        <a href="#final-cta" class="btn btn-secondary plan-cta">Start Free Trial</a>
+        <a href="booking.html" class="btn btn-secondary plan-cta">Start Free Trial</a>
       </div>
 
       <div class="plan-card featured" aria-label="Most popular membership plan">
@@ -2109,7 +2054,7 @@ footer {
           <li><span>✓</span>Nutrition Guidance</li>
           <li><span>✓</span>Priority Booking</li>
         </ul>
-        <a href="#final-cta" class="btn btn-primary plan-cta">Start Free Trial</a>
+        <a href="booking.html" class="btn btn-primary plan-cta">Start Free Trial</a>
       </div>
 
       <div class="plan-card">
@@ -2128,7 +2073,7 @@ footer {
           <li><span>✓</span>Dedicated Coach Assignment</li>
           <li><span>✓</span>Recovery & Mobility Sessions</li>
         </ul>
-        <a href="#final-cta" class="btn btn-secondary plan-cta">Start Free Trial</a>
+        <a href="booking.html" class="btn btn-secondary plan-cta">Start Free Trial</a>
       </div>
     </div>
   </div>
@@ -2375,8 +2320,9 @@ footer {
     <h2 id="cta-title">Your trial is<br><span>waiting for you.</span></h2>
     <p>One session is all it takes to see why 500+ members chose IronForge. No commitment, no payment — just show up.</p>
     <div class="final-cta-actions">
-      <a href="tel:+919999999999" class="btn btn-danger" aria-label="Call to book your free trial">📞 Call to Book Now</a>
-      <a href="https://wa.me/919999999999" class="btn btn-secondary" aria-label="WhatsApp to book your free trial" target="_blank" rel="noopener noreferrer">💬 WhatsApp Us</a>
+      <a href="booking.html" class="btn btn-primary" aria-label="Book your free trial online">Book Free Trial Online →</a>
+      <a href="tel:+919999999999" class="btn btn-danger" aria-label="Call to book your free trial">📞 Call Us</a>
+      <a href="https://wa.me/919999999999" class="btn btn-secondary" aria-label="WhatsApp to book your free trial" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
     </div>
     <div class="cta-meta">
       <div class="cta-meta-item"><span>✓</span>No credit card needed</div>
@@ -2441,16 +2387,8 @@ footer {
    FLOATING MOBILE CTA
    ============================================================ -->
 <div class="mobile-cta-float" aria-label="Mobile booking button">
-  <a href="#final-cta" class="btn btn-primary" aria-label="Book your free trial">Book Free Trial — It's Free →</a>
+  <a href="booking.html" class="btn btn-primary" aria-label="Book your free trial">Book Free Trial — It's Free →</a>
 </div>
-<!-- back to hero scroll button -->
-<button class="back-to-hero" type="button" aria-label="Back to hero">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-    <path d="M12 19V5"></path>
-    <path d="M5 12l7-7 7 7"></path>
-  </svg>
-</button>
-
 
 <!-- ============================================================
    SCRIPTS
@@ -2555,30 +2493,6 @@ document.querySelectorAll('.faq-q').forEach(btn => {
     }
   });
 });
-</script><script>
-  document.querySelector('.back-to-hero').addEventListener('click', function () {
-    const startPosition = window.pageYOffset;
-    const targetPosition = document.querySelector('#hero').getBoundingClientRect().top + window.pageYOffset;
-    const distance = targetPosition - startPosition;
-    const duration = 900;
-    let startTime = null;
-
-    function smoothScroll(currentTime) {
-      if (startTime === null) startTime = currentTime;
-
-      const timeElapsed = currentTime - startTime;
-      const progress = Math.min(timeElapsed / duration, 1);
-      const ease = 1 - Math.pow(1 - progress, 3);
-
-      window.scrollTo(0, startPosition + distance * ease);
-
-      if (timeElapsed < duration) {
-        requestAnimationFrame(smoothScroll);
-      }
-    }
-
-    requestAnimationFrame(smoothScroll);
-  });
 </script>
 </body>
 </html>

@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IronForge Gym — Book Your Free Trial</title>
+<title>IronForge Gym — Hisar's Premium Fitness Center</title>
 <meta name="description" content="IronForge is Hisar's most results-driven gym. 500+ members, 15 expert trainers, proven transformations. Book your free trial today.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230A0A0F'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Arial Black,sans-serif' font-size='14' fill='%23E8FF00'%3EIF%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -28,7 +29,7 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 
 body {
   background: var(--bg);
@@ -192,7 +193,7 @@ h3 {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 36px;
+  gap: 24px;
   list-style: none;
 }
 
@@ -205,7 +206,10 @@ h3 {
   letter-spacing: 0.03em;
 }
 
-.nav-links a:hover { color: var(--white); }
+.nav-links a:hover,
+.nav-links a.active { color: var(--white); }
+
+.nav-links a.active { color: var(--volt); }
 
 .nav-actions {
   display: flex;
@@ -802,7 +806,6 @@ h3 {
   border-radius: 4px;
   overflow: hidden;
   transition: transform 0.3s, border-color 0.3s;
-  group: true;
 }
 
 .trainer-card:hover {
@@ -1066,6 +1069,131 @@ h3 {
   justify-content: center;
   font-size: 22px;
   color: var(--volt);
+}
+
+/* Gallery lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(10,10,15,0.92);
+  backdrop-filter: blur(12px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.lightbox.open { display: flex; }
+
+.lightbox img {
+  max-width: min(1100px, 92vw);
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--white);
+  font-size: 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.lightbox-close:hover {
+  border-color: var(--volt);
+  color: var(--volt);
+}
+
+.lightbox-caption {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  color: var(--muted);
+  text-align: center;
+  max-width: 600px;
+}
+
+/* ============================================================
+   LOCATION
+   ============================================================ */
+#location { background: var(--bg); }
+
+.location-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.location-info {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.location-detail {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.location-detail-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--volt-dim);
+  border: 1px solid rgba(232,255,0,0.15);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.location-detail h4 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.location-detail p,
+.location-detail a {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.location-detail a:hover { color: var(--volt); }
+
+.location-map {
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  aspect-ratio: 4 / 3;
+  background: var(--card);
+}
+
+.location-map iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: grayscale(0.3) contrast(1.1);
 }
 
 /* ============================================================
@@ -1417,6 +1545,7 @@ footer {
   font-size: 15px;
   transition: all 0.2s;
   cursor: pointer;
+  color: inherit;
 }
 
 .footer-social-icon:hover {
@@ -1469,6 +1598,26 @@ footer {
   left: 16px;
   right: 16px;
   z-index: 900;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(24px);
+  transition:
+    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 0.45s;
+  will-change: opacity, transform;
+}
+
+.mobile-cta-float.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition:
+    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 0s;
 }
 
 .mobile-cta-float .btn {
@@ -1524,6 +1673,8 @@ footer {
   .nav-links, .nav-actions { display: none; }
   .hamburger { display: flex; }
 
+  .location-grid { grid-template-columns: 1fr; gap: 32px; }
+
   .hero-grid {
     grid-template-columns: 1fr;
     min-height: auto;
@@ -1568,7 +1719,6 @@ footer {
   .footer-bottom { flex-direction: column; align-items: flex-start; }
 
   .mobile-cta-float { display: block; }
-
   .trustbar-track { gap: 24px; }
   .trust-sep { display: none; }
 }
@@ -1624,11 +1774,36 @@ footer {
   -webkit-backdrop-filter: blur(14px);
   box-shadow: 0 18px 45px rgba(0,0,0,0.35);
   cursor: pointer;
-  transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(20px) scale(0.88);
+  transition:
+    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.22s ease,
+    background 0.22s ease,
+    box-shadow 0.22s ease,
+    visibility 0s linear 0.45s;
+  will-change: opacity, transform;
 }
 
-.back-to-hero:hover {
-  transform: translateY(-4px);
+.back-to-hero.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+  transition:
+    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.22s ease,
+    background 0.22s ease,
+    box-shadow 0.22s ease,
+    visibility 0s linear 0s;
+}
+
+.back-to-hero.visible:hover {
+  transform: translateY(-4px) scale(1);
   border-color: var(--volt);
   background: rgba(232,255,0,0.12);
   box-shadow: 0 22px 55px rgba(232,255,0,0.16);
@@ -1643,7 +1818,7 @@ footer {
 @media (max-width: 640px) {
   .back-to-hero {
     right: 18px;
-    bottom: 18px;
+    bottom: 90px;
     width: 48px;
     height: 48px;
   }
@@ -1661,7 +1836,9 @@ footer {
   <a href="#why" onclick="closeMobile()">Why Us</a>
   <a href="#trainers" onclick="closeMobile()">Trainers</a>
   <a href="#membership" onclick="closeMobile()">Membership</a>
+  <a href="#gallery" onclick="closeMobile()">Gallery</a>
   <a href="#testimonials" onclick="closeMobile()">Reviews</a>
+  <a href="#faq" onclick="closeMobile()">FAQ</a>
   <a href="booking.html" class="btn btn-primary" onclick="closeMobile()">Book Free Trial</a>
 </nav>
 
@@ -1671,13 +1848,15 @@ footer {
 <header id="header" role="banner">
   <div class="container">
     <nav class="nav-inner" aria-label="Main navigation">
-      <a href="#" class="logo" aria-label="IronForge Home">IRON<span>FORGE</span></a>
+      <a href="index.html" class="logo" aria-label="IronForge Home">IRON<span>FORGE</span></a>
       <ul class="nav-links" role="list">
-        <li><a href="#services">Services</a></li>
-        <li><a href="#why">Why Us</a></li>
-        <li><a href="#trainers">Trainers</a></li>
-        <li><a href="#membership">Membership</a></li>
-        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#services" data-nav="services">Services</a></li>
+        <li><a href="#why" data-nav="why">Why Us</a></li>
+        <li><a href="#trainers" data-nav="trainers">Trainers</a></li>
+        <li><a href="#membership" data-nav="membership">Membership</a></li>
+        <li><a href="#gallery" data-nav="gallery">Gallery</a></li>
+        <li><a href="#testimonials" data-nav="testimonials">Reviews</a></li>
+        <li><a href="#faq" data-nav="faq">FAQ</a></li>
       </ul>
       <div class="nav-actions">
         <a href="tel:+919999999999" class="nav-phone" aria-label="Call us">+91 99999 99999</a>
@@ -2147,7 +2326,7 @@ footer {
       <h2 id="gallery-title">See it before<br>you step in.</h2>
     </div>
     <div class="gallery-grid" role="list" aria-label="Gallery of IronForge facilities">
-      <div class="gallery-item" role="listitem">
+      <div class="gallery-item" role="listitem" tabindex="0" data-src="https://images.unsplash.com/photo-1593079831268-3381b0db4a77?w=1200&q=80&auto=format&fit=crop" data-caption="Main gym floor — free weights and racks">
         <img
           src="https://images.unsplash.com/photo-1593079831268-3381b0db4a77?w=800&q=75&auto=format&fit=crop"
           alt="IronForge main gym floor — free weights and racks"
@@ -2157,7 +2336,7 @@ footer {
           <div class="gallery-plus">+</div>
         </div>
       </div>
-      <div class="gallery-item" role="listitem">
+      <div class="gallery-item" role="listitem" tabindex="0" data-src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=1200&q=80&auto=format&fit=crop" data-caption="Cardio and conditioning area">
         <img
           src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=500&q=75&auto=format&fit=crop"
           alt="Cardio and conditioning area"
@@ -2167,7 +2346,7 @@ footer {
           <div class="gallery-plus">+</div>
         </div>
       </div>
-      <div class="gallery-item" role="listitem">
+      <div class="gallery-item" role="listitem" tabindex="0" data-src="https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?w=1200&q=80&auto=format&fit=crop" data-caption="Group training session in progress">
         <img
           src="https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?w=500&q=75&auto=format&fit=crop"
           alt="Group training session in progress"
@@ -2177,7 +2356,7 @@ footer {
           <div class="gallery-plus">+</div>
         </div>
       </div>
-      <div class="gallery-item" role="listitem">
+      <div class="gallery-item" role="listitem" tabindex="0" data-src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?w=1200&q=80&auto=format&fit=crop" data-caption="One-to-one personal training session">
         <img
           src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?w=500&q=75&auto=format&fit=crop"
           alt="One-to-one personal training session"
@@ -2187,7 +2366,7 @@ footer {
           <div class="gallery-plus">+</div>
         </div>
       </div>
-      <div class="gallery-item" role="listitem">
+      <div class="gallery-item" role="listitem" tabindex="0" data-src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1200&q=80&auto=format&fit=crop" data-caption="Yoga and flexibility class">
         <img
           src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=500&q=75&auto=format&fit=crop"
           alt="Yoga and flexibility class"
@@ -2391,19 +2570,74 @@ footer {
 </section>
 
 <!-- ============================================================
+   LOCATION
+   ============================================================ -->
+<section id="location" class="section" aria-labelledby="location-title">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="eyebrow">Find Us</span>
+      <h2 id="location-title">Visit IronForge<br>in Hisar.</h2>
+      <p>We're in Sector 14 — easy to find, free parking, and open 7 days a week.</p>
+    </div>
+    <div class="location-grid fade-up">
+      <div class="location-info">
+        <div class="location-detail">
+          <div class="location-detail-icon" aria-hidden="true">📍</div>
+          <div>
+            <h4>Address</h4>
+            <p>Sector 14, Hisar,<br>Haryana 125001, India</p>
+          </div>
+        </div>
+        <div class="location-detail">
+          <div class="location-detail-icon" aria-hidden="true">📞</div>
+          <div>
+            <h4>Phone</h4>
+            <p><a href="tel:+919999999999">+91 99999 99999</a></p>
+          </div>
+        </div>
+        <div class="location-detail">
+          <div class="location-detail-icon" aria-hidden="true">✉️</div>
+          <div>
+            <h4>Email</h4>
+            <p><a href="mailto:hello@ironforge.in">hello@ironforge.in</a></p>
+          </div>
+        </div>
+        <div class="location-detail">
+          <div class="location-detail-icon" aria-hidden="true">🕐</div>
+          <div>
+            <h4>Hours</h4>
+            <p>Mon–Fri: 6am–10pm<br>Saturday: 7am–9pm<br>Sunday: 8am–6pm</p>
+          </div>
+        </div>
+        <a href="https://maps.google.com/?q=Sector+14+Hisar+Haryana" class="btn btn-primary" target="_blank" rel="noopener noreferrer" aria-label="Get directions to IronForge on Google Maps">Get Directions →</a>
+      </div>
+      <div class="location-map" aria-label="Map showing IronForge location in Sector 14, Hisar">
+        <iframe
+          title="IronForge Gym location on Google Maps"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=Sector+14+Hisar+Haryana&t=&z=14&ie=UTF8&iwloc=&output=embed"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
    FOOTER
    ============================================================ -->
 <footer role="contentinfo">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="#" class="logo" aria-label="IronForge Home">IRON<span>FORGE</span></a>
-        <p>Hisar's most results-focused training facility. 8 years, 2,500+ members, 15 expert coaches — and one free trial away.</p>
+        <a href="index.html" class="logo" aria-label="IronForge Home">IRON<span>FORGE</span></a>
+        <p>Hisar's most results-focused training facility. 8 years, 2,500+ members trained, 15 expert coaches — and one free trial away.</p>
         <div class="footer-social" aria-label="IronForge social media">
-          <div class="footer-social-icon" role="button" tabindex="0" title="Instagram" aria-label="Instagram">📷</div>
-          <div class="footer-social-icon" role="button" tabindex="0" title="YouTube" aria-label="YouTube">▶</div>
-          <div class="footer-social-icon" role="button" tabindex="0" title="Facebook" aria-label="Facebook">👤</div>
-          <div class="footer-social-icon" role="button" tabindex="0" title="WhatsApp" aria-label="WhatsApp">💬</div>
+          <a href="https://instagram.com/" class="footer-social-icon" title="Instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer">📷</a>
+          <a href="https://youtube.com/" class="footer-social-icon" title="YouTube" aria-label="YouTube" target="_blank" rel="noopener noreferrer">▶</a>
+          <a href="https://facebook.com/" class="footer-social-icon" title="Facebook" aria-label="Facebook" target="_blank" rel="noopener noreferrer">👤</a>
+          <a href="https://wa.me/919999999999" class="footer-social-icon" title="WhatsApp" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">💬</a>
         </div>
       </div>
       <div class="footer-col">
@@ -2414,6 +2648,8 @@ footer {
           <li><a href="#trainers">Trainers</a></li>
           <li><a href="#membership">Membership</a></li>
           <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#location">Location</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -2430,7 +2666,7 @@ footer {
         <ul>
           <li><a href="tel:+919999999999">+91 99999 99999</a></li>
           <li><a href="mailto:hello@ironforge.in">hello@ironforge.in</a></li>
-          <li><a>Sector 14, Hisar,<br>Haryana 125001</a></li>
+          <li><a href="https://maps.google.com/?q=Sector+14+Hisar+Haryana" target="_blank" rel="noopener noreferrer">Sector 14, Hisar,<br>Haryana 125001</a></li>
         </ul>
       </div>
     </div>
@@ -2444,19 +2680,68 @@ footer {
 <!-- ============================================================
    FLOATING MOBILE CTA
    ============================================================ -->
-<div class="mobile-cta-float" aria-label="Mobile booking button">
+<div class="mobile-cta-float" id="mobileCtaFloat" aria-label="Mobile booking button">
   <a href="booking.html" class="btn btn-primary" aria-label="Book your free trial">Book Free Trial — It's Free →</a>
+</div>
+
+<button class="back-to-hero" id="backToHero" type="button" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+    <path d="M12 19V5"></path>
+    <path d="M5 12l7-7 7 7"></path>
+  </svg>
+</button>
+
+<!-- Gallery lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Gallery image viewer">
+  <button class="lightbox-close" type="button" aria-label="Close gallery image">×</button>
+  <img id="lightboxImg" src="" alt="">
+  <p class="lightbox-caption" id="lightboxCaption"></p>
 </div>
 
 <!-- ============================================================
    SCRIPTS
    ============================================================ -->
 <script>
-/* ---- Header scroll ---- */
+/* ---- Header scroll + post-hero floating buttons ---- */
 const header = document.getElementById('header');
+const backToHeroBtn = document.getElementById('backToHero');
+const mobileCtaFloat = document.getElementById('mobileCtaFloat');
+const heroSection = document.getElementById('hero');
+
 window.addEventListener('scroll', () => {
   header.classList.toggle('scrolled', window.scrollY > 40);
 }, { passive: true });
+
+function setPostHeroButtons(show) {
+  backToHeroBtn?.classList.toggle('visible', show);
+  mobileCtaFloat?.classList.toggle('visible', show);
+}
+
+if (heroSection) {
+  const heroObserver = new IntersectionObserver(([entry]) => {
+    setPostHeroButtons(!entry.isIntersecting);
+  }, { threshold: 0 });
+  heroObserver.observe(heroSection);
+}
+
+backToHeroBtn?.addEventListener('click', () => {
+  const startPosition = window.pageYOffset;
+  const targetPosition = heroSection.getBoundingClientRect().top + window.pageYOffset;
+  const distance = targetPosition - startPosition;
+  const duration = 900;
+  let startTime = null;
+
+  function smoothScroll(currentTime) {
+    if (startTime === null) startTime = currentTime;
+    const timeElapsed = currentTime - startTime;
+    const progress = Math.min(timeElapsed / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    window.scrollTo(0, startPosition + distance * ease);
+    if (timeElapsed < duration) requestAnimationFrame(smoothScroll);
+  }
+
+  requestAnimationFrame(smoothScroll);
+});
 
 /* ---- Hamburger ---- */
 const hamburger = document.getElementById('hamburger');
@@ -2475,6 +2760,69 @@ function closeMobile() {
   hamburger.setAttribute('aria-expanded', 'false');
   document.body.style.overflow = '';
 }
+
+/* ---- Active nav on scroll ---- */
+const navSections = ['services', 'why', 'trainers', 'membership', 'gallery', 'testimonials', 'faq', 'location'];
+const navLinks = document.querySelectorAll('.nav-links a[data-nav]');
+
+const navObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.dataset.nav === id);
+      });
+    }
+  });
+}, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+
+navSections.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) navObserver.observe(el);
+});
+
+/* ---- Gallery lightbox ---- */
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+const lightboxCaption = document.getElementById('lightboxCaption');
+const lightboxClose = document.querySelector('.lightbox-close');
+
+function openLightbox(item) {
+  lightboxImg.src = item.dataset.src;
+  lightboxImg.alt = item.dataset.caption || 'IronForge gym photo';
+  lightboxCaption.textContent = item.dataset.caption || '';
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  lightboxImg.src = '';
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.gallery-item').forEach(item => {
+  item.addEventListener('click', () => openLightbox(item));
+  item.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openLightbox(item);
+    }
+  });
+});
+
+lightboxClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', e => {
+  if (e.target === lightbox) closeLightbox();
+});
+
+/* ---- Escape key ---- */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closeMobile();
+    closeLightbox();
+  }
+});
 
 /* ---- Intersection Observer for fade-ups ---- */
 const observer = new IntersectionObserver((entries) => {
@@ -2552,42 +2900,6 @@ document.querySelectorAll('.faq-q').forEach(btn => {
   });
 });
 </script>
-
-<!-- back to hero scroll button -->
-
-
-<button class="back-to-hero" type="button" aria-label="Back to hero">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-    <path d="M12 19V5"></path>
-    <path d="M5 12l7-7 7 7"></path>
-  </svg>
-</button>
-<script>
-  document.querySelector('.back-to-hero').addEventListener('click', function () {
-    const startPosition = window.pageYOffset;
-    const targetPosition = document.querySelector('#hero').getBoundingClientRect().top + window.pageYOffset;
-    const distance = targetPosition - startPosition;
-    const duration = 900;
-    let startTime = null;
-
-    function smoothScroll(currentTime) {
-      if (startTime === null) startTime = currentTime;
-
-      const timeElapsed = currentTime - startTime;
-      const progress = Math.min(timeElapsed / duration, 1);
-      const ease = 1 - Math.pow(1 - progress, 3);
-
-      window.scrollTo(0, startPosition + distance * ease);
-
-      if (timeElapsed < duration) {
-        requestAnimationFrame(smoothScroll);
-      }
-    }
-
-    requestAnimationFrame(smoothScroll);
-  });
-</script>
-
 
 </body>
 </html>
